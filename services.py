@@ -43,5 +43,20 @@ def register_employee(db: Session, data: create_employee):
     #     print("========== DATABASE ERROR ==========")
     #     print(type(err).__name__)
     #     print(err)
-    #     print("====================================")
+    #     print("====================")
     #     raise
+
+def getEmplyees(db:Session,e_id):
+    #  print("from db:",employees)
+     if e_id:
+          employees = db.query(Employee).filter(Employee.id==e_id).first()
+     else:
+            employees = db.query(Employee).all()
+     for emp in employees:
+           print("from db:\n",{
+                 "id":emp.id,
+                 "name":emp.name,
+                 "slary":emp.salary   
+           })
+     
+     return {"Respons":employees}
