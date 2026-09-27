@@ -46,6 +46,8 @@ def register_employee(db: Session, data: create_employee):
     #     print("====================")
     #     raise
 
+
+## QUERY PARAMETERS
 def getEmplyees(db:Session,e_id):
     #  print("from db:",employees)
      if e_id:
@@ -60,3 +62,10 @@ def getEmplyees(db:Session,e_id):
            })
      
      return {"Respons":employees}
+
+
+## path parameter
+def getEmplyees_by_id(db:Session,e_id):
+    #  print("from path parameter:",employees)
+        employees = db.query(Employee).filter(Employee.id==e_id).first()
+        return {"Respons":employees}

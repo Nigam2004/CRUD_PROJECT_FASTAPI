@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends,HTTPException,Query
 from fastapi_db import get_db,test_db
-from services import register_employee, getEmplyees
+from services import register_employee, getEmplyees,getEmplyees_by_id
 from sqlalchemy.orm import Session
 from schema import create_employee
 app=FastAPI()
@@ -18,3 +18,9 @@ def get_employee(db:Session=Depends(get_db),e_id:int|None=Query(None)):
     print("geteEmployees CALLED")
     return getEmplyees(db,e_id)
 
+## path parameter
+@app.get("/geteEmployees/{e_id}")
+def get_employee(e_id:int,db:Session=Depends(get_db)):
+    # In Python, a parameter with a default value cannot come before a parameter without a default value.
+    print("geteEmployees/e_id CALLED")
+    return getEmplyees_by_id(db,e_id)
