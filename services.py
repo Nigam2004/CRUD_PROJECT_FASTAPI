@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from schema import create_employee
+from schema import create_employee,update_data
 from models import Employee
 
 
@@ -54,13 +54,12 @@ def getEmplyees(db:Session,e_id):
           employees = db.query(Employee).filter(Employee.id==e_id).first()
      else:
             employees = db.query(Employee).all()
-     for emp in employees:
-           print("from db:\n",{
-                 "id":emp.id,
-                 "name":emp.name,
-                 "slary":emp.salary   
-           })
-     
+            for emp in employees:
+                print("from db:\n",{
+                    "id":emp.id,
+                    "name":emp.name,
+                    "slary":emp.salary   
+                            })
      return {"Respons":employees}
 
 
@@ -69,3 +68,36 @@ def getEmplyees_by_id(db:Session,e_id):
     #  print("from path parameter:",employees)
         employees = db.query(Employee).filter(Employee.id==e_id).first()
         return {"Respons":employees}
+
+##Update services
+def updateEmployee(db:Session,e_id,data:update_data):
+      employees = db.query(Employee).filter(Employee.id==e_id).first()
+      if not employees:
+            print(f"no record found for {e_id}")
+      employees.name= data.name
+      employees.salary=data.salary
+      db.commit()
+      db.refresh(employees)
+      return{
+        "msg": "Employee updated successfully",
+        "data": {
+            "id": employees.id,
+            "name": employees.name,
+            "salary": employees.salary
+            }
+        }
+
+
+##delete employee  services
+def deleteEmployee(db:Session,e_id):
+    employees = db.query(Employee).filter(Employee.id==e_id).first()
+    if not employees:
+            print(f"no record found for {e_id}")
+
+    db.delete(employees)
+    db.commit()
+
+    return{
+          "res":"Employee deleted successfully",
+          "id": e_id
+    }
