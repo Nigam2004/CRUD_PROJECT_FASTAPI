@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Depends,HTTPException,Query
+from router.company import router as company_router
 from fastapi_db import get_db,test_db
 from services import register_employee, getEmplyees,getEmplyees_by_id,updateEmployee,deleteEmployee
 from sqlalchemy.orm import Session
 from schema import create_employee,update_data
+
 app=FastAPI()
 test_db()
 print("========== MAIN.PY LOADED ==========")
@@ -41,3 +43,11 @@ def delete_employee(e_id:int,db:Session=Depends(get_db)):
      return deleteEmployee(db,e_id)
 
     
+# Router API
+
+app.include_router(
+    company_router,
+    prefix="/cmp",
+    tags=["company"]
+)
+

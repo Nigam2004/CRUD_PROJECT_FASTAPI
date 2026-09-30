@@ -3,6 +3,12 @@ from sqlalchemy.orm import sessionmaker
 
 DATABASE_URL = "postgresql+psycopg://postgres:12345@localhost:5432/fastapi_db"
 
+# db.add()	    :Put object into session
+# db.flush()    :Send pending SQL to DB within transaction
+# db.commit()   :Save transaction permanently
+# db.rollback() :Cancel current uncommitted transaction
+# db.refresh()  :Reload object from database
+
 engine = create_engine(DATABASE_URL)
 # engine conncet with database 
 print("Database connection created")

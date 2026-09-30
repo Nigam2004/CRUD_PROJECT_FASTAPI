@@ -3,7 +3,7 @@ from schema import create_employee,update_data
 from models import Employee
 from fastapi import HTTPException
 
-
+#employee services
 def register_employee(db: Session, data: create_employee):
 
     print("1. SERVICE STARTED")
@@ -110,3 +110,5 @@ def deleteEmployee(db:Session,e_id):
           "res":"Employee deleted successfully",
           "id": e_id
     }
+
+

@@ -12,14 +12,12 @@ class Employee(base):
     salary = Column(Integer)
    
 
-# class company(base):
-#     __tablename__="company"
-
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String(100))
-#     loc = Column(String(100))
-#     area = Column(String(100))
-
+class company(base):
+    __tablename__="company"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    loc = Column(String(100))
+   
 # class company_2(base):
 #     __tablename__="company_2"
 

@@ -8,5 +8,8 @@ class update_data(BaseModel):
       name: str
       salary: int
 
-
+class create_company(BaseModel):
+      name :str
+      loc :str
+      
 
