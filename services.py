@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 from schema import create_employee,update_data
 from models import Employee
+from fastapi import HTTPException
 
 
 def register_employee(db: Session, data: create_employee):
 
     print("1. SERVICE STARTED")
-    print("2. DATA RECIEVED:", data)
 
     try:
         new_employee = Employee(**data.model_dump())
@@ -74,6 +74,11 @@ def updateEmployee(db:Session,e_id,data:update_data):
       employees = db.query(Employee).filter(Employee.id==e_id).first()
       if not employees:
             print(f"no record found for {e_id}")
+            raise HTTPException(
+                # fastapi status code erorr  through                 
+                status_code=404,
+                detail=f"not found e_id {e_id}"
+            )
       employees.name= data.name
       employees.salary=data.salary
       db.commit()
@@ -93,7 +98,11 @@ def deleteEmployee(db:Session,e_id):
     employees = db.query(Employee).filter(Employee.id==e_id).first()
     if not employees:
             print(f"no record found for {e_id}")
-
+            raise HTTPException(
+                # fastapi status code erorr  through                 
+                status_code=404,
+                detail=f"not found e_id {e_id}"
+                )
     db.delete(employees)
     db.commit()
 
