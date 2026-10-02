@@ -23,6 +23,7 @@ def register_employee(db: Session, data: create_employee):
 
     except Exception as err:
             db.rollback()
+    # db.rollback() is used to cancel the current database transaction when something goes wrong.
             print("========== DATABASE ERROR ==========")
             print(type(err).__name__)
             print(err)
