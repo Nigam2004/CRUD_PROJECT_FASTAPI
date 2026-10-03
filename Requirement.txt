@@ -3,7 +3,4 @@ uvicorn
 pydantic
 SQLAlchemy
 psycopg2-binary
-
-python -m venv venv
-source venv/Scripts/activate
---uvicorn main:app --reload
+psycopg
